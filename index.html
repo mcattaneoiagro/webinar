@@ -20,15 +20,25 @@
   body.on-dark{background:var(--navy)}
 
   .stage{position:fixed!important;inset:0!important;overflow:hidden!important;background:var(--bg)!important;transition:top 0.25s ease,right 0.25s ease,left 0.25s ease,bottom 0.25s ease}
-  .slide{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;transform:none!important;box-shadow:none!important;border:none!important;border-radius:0!important;padding:5% 6%!important;box-sizing:border-box!important;display:none;flex-direction:column;overflow-y:auto!important;background:var(--bg)}
+  .slide{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;transform:none!important;box-shadow:none!important;border:none!important;border-radius:0!important;padding:5% 6% 72px!important;box-sizing:border-box!important;display:none;flex-direction:column;justify-content:safe center;overflow-y:auto!important;-webkit-overflow-scrolling:touch;background:var(--bg)}
   .slide.active{display:flex!important;opacity:1!important}
-  @media (max-width:768px){
-    .slide{padding:24px 16px!important}
-    .grid,.columns,.split,.row,[style*="grid-template-columns"],.chips{grid-template-columns:1fr!important;flex-direction:column!important;display:flex!important;gap:16px!important}
-    .slide h1,.slide .title,.slide h2{font-size:1.8rem!important;line-height:1.2!important}
-    .slide h3,.slide .subtitle{font-size:1.3rem!important}
-    .slide p,.slide li,.slide td,.slide div{font-size:1rem!important;line-height:1.4!important}
-    .slide img{max-width:100%!important;height:auto!important}
+  /* TABLET: mantener columnas pero reducir densidad de grillas densas */
+  @media (max-width:900px){
+    .g3,.g4{grid-template-columns:1fr 1fr!important}
+  }
+  /* CELULAR: apilado agresivo en 1 columna */
+  @media (max-width:600px){
+    .slide{padding:20px 16px 80px!important;overflow-x:hidden!important}
+    .grid,.columns,.split,.row,.cover-row,.agenda,.ph,.msgs{display:flex!important;flex-direction:column!important;gap:16px!important;width:100%!important;grid-template-columns:unset!important}
+    .card{width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+    .eyebrow{flex-wrap:wrap!important}
+    .cover-left{max-width:100%!important;width:100%!important;min-width:0!important}
+    /* seguridad anti-desborde de texto (los tamaños los maneja clamp en el CSS base) */
+    .slide h1,.slide h2,.slide h3,.slide p,.slide li,.slide .lead,.slide .sub,.slide .big{word-break:break-word!important;overflow-wrap:anywhere!important}
+    .slide img,.slide video{max-width:100%!important;height:auto!important;object-fit:contain!important}
+    .slide table{display:block!important;width:100%!important;overflow-x:auto!important;white-space:nowrap!important}
+    .chips{flex-direction:row!important;flex-wrap:wrap!important;gap:8px!important}
+    .chip{width:auto!important;flex:0 0 auto!important}
   }
   body.workspace-editor-active,body.workspace-editor-active .stage{background:#e9ecef!important;transition:background .3s ease}
   body.workspace-editor-active.on-dark,body.workspace-editor-active.on-dark .stage{background:#111e2e!important}
@@ -46,9 +56,9 @@
     padding:3px 11px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-left:6px}
   .dark .time{border-color:rgba(255,255,255,.2)}
 
-  h1{font-size:58px;line-height:1.06;font-weight:800;letter-spacing:-.02em}
-  h2{font-size:46px;line-height:1.1;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
-  .lead{font-size:22px;color:var(--muted);max-width:60ch;margin-top:14px;line-height:1.5}
+  h1{font-size:clamp(2rem,4.6vw,58px);line-height:1.06;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:clamp(1.6rem,3.6vw,46px);line-height:1.1;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+  .lead{font-size:clamp(1rem,1.6vw,22px);color:var(--muted);max-width:60ch;margin-top:14px;line-height:1.5}
   .accent{color:var(--green)} .dark .accent{color:var(--green-l)}
   .muted{color:var(--muted)}
 
@@ -56,10 +66,10 @@
   .cover{justify-content:center}
   .cover-row{display:flex;align-items:center;gap:40px;width:100%}
   .cover-left{flex:0 1 auto;min-width:0;max-width:62%}
-  .cover-logo{height:360px;width:auto;flex:0 0 auto;align-self:center;margin:0 auto}
+  .cover-logo{height:clamp(140px,26vh,360px);width:auto;flex:0 0 auto;align-self:center;margin:0 auto}
   .logo-img{display:block;height:auto;width:auto}
   .cover h1{max-width:20ch}
-  .cover .sub{font-size:22px;color:#9fb2c2;margin-top:18px;max-width:46ch;line-height:1.5}
+  .cover .sub{font-size:clamp(1rem,1.6vw,22px);color:#9fb2c2;margin-top:18px;max-width:46ch;line-height:1.5}
   .kick{font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green-l);margin-bottom:14px}
 
   /* generic content */
@@ -71,16 +81,16 @@
   .card .ico{width:46px;height:46px;border-radius:12px;background:var(--green-bg);display:flex;align-items:center;justify-content:center;color:var(--green)}
   .dark .card .ico{background:rgba(79,196,134,.14);color:var(--green-l)}
   .card .ico svg{width:25px;height:25px}
-  .card h3{font-size:18px;font-weight:800}
+  .card h3{font-size:clamp(1rem,1.3vw,18px);font-weight:800}
   .card p{font-size:14.5px;color:var(--muted);line-height:1.45}
 
-  .tagline{margin-top:22px;font-size:24px;font-weight:700;color:var(--navy)}
+  .tagline{margin-top:22px;font-size:clamp(1.1rem,1.9vw,24px);font-weight:700;color:var(--navy)}
   .dark .tagline{color:#fff}
   .tagline .q{color:var(--green)} .dark .tagline .q{color:var(--green-l)}
 
   ul.checks{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:13px;max-width:64ch}
-  ul.checks li{display:flex;gap:12px;align-items:flex-start;font-size:19px}
-  ul.checks li svg{width:24px;height:24px;flex:0 0 auto;margin-top:2px;color:var(--green)}
+  ul.checks li{display:block;position:relative;padding-left:36px;font-size:clamp(1rem,1.5vw,19px);line-height:1.45}
+  ul.checks li svg{position:absolute;left:0;top:3px;width:24px;height:24px;color:var(--green)}
   .dark ul.checks li svg{color:var(--green-l)}
 
   .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:flex-start}
@@ -100,14 +110,14 @@
 
   /* demo divider */
   .divider{align-items:flex-start;justify-content:center}
-  .divider .big{font-size:90px;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .divider .big{font-size:clamp(2.2rem,7vw,90px);font-weight:800;letter-spacing:-.02em;line-height:1}
   .divider .live{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green-l);margin-bottom:16px}
   .live .dot{width:11px;height:11px;border-radius:50%;background:#ff5a5a;box-shadow:0 0 0 0 rgba(255,90,90,.6);animation:pulse 1.6s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,90,90,.6)}70%{box-shadow:0 0 0 12px rgba(255,90,90,0)}100%{box-shadow:0 0 0 0 rgba(255,90,90,0)}}
 
   /* closing messages */
   .msgs{display:flex;flex-direction:column;gap:18px;margin:auto 0;max-width:80ch}
-  .msg{border-radius:16px;padding:24px 26px;font-size:22px;line-height:1.45;font-weight:600}
+  .msg{border-radius:16px;padding:24px 26px;font-size:clamp(1rem,1.7vw,22px);line-height:1.45;font-weight:600}
   .msg.y{background:var(--yellow);border-left:5px solid var(--yellow-b);color:var(--yellow-ink)}
   .msg.b{background:var(--blue);border-left:5px solid var(--green-l);color:#eaf2fb}
   .msg b{font-weight:800}
@@ -115,7 +125,7 @@
   /* cta / qa */
   .center{align-items:center;justify-content:center;text-align:center}
   .btn{display:inline-block;margin-top:26px;background:var(--green);color:#fff;font-weight:800;font-size:18px;padding:15px 32px;border-radius:13px}
-  .logo-foot{height:74px;margin:0 auto 22px;display:block}
+  .logo-foot{height:clamp(48px,9vh,74px);margin:0 auto 22px;display:block}
 
   /* HUD */
   .progress{position:fixed;top:0;left:0;height:4px;background:var(--green);z-index:40;transition:width .4s}
@@ -322,7 +332,7 @@
 
 </div>
 
-<div class="hint" id="hint" style="transition: opacity 0.6s; opacity: 0;">← → para navegar · N = notas del presentador</div>
+<div class="hint" id="hint">← → para navegar · N = notas del presentador</div>
 <div class="hud">
   <div class="dots" id="dots"></div>
   <div class="nav"><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Siguiente">›</button></div>
