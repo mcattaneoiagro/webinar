@@ -36,6 +36,9 @@
     /* seguridad anti-desborde de texto (los tamaños los maneja clamp en el CSS base) */
     .slide h1,.slide h2,.slide h3,.slide p,.slide li,.slide .lead,.slide .sub,.slide .big{word-break:break-word!important;overflow-wrap:anywhere!important}
     .slide img,.slide video{max-width:100%!important;height:auto!important;object-fit:contain!important}
+    /* logos: max-height fuerza el tamaño aunque .slide img{height:auto} lo libere */
+    .slide img.cover-logo{max-height:190px!important;height:auto!important;width:auto!important;max-width:70%!important;margin:0 auto!important}
+    .slide img.logo-foot{max-height:120px!important;height:auto!important;width:auto!important;margin:0 auto 16px!important}
     .slide table{display:block!important;width:100%!important;overflow-x:auto!important;white-space:nowrap!important}
     .chips{flex-direction:row!important;flex-wrap:wrap!important;gap:8px!important}
     .chip{width:auto!important;flex:0 0 auto!important}
@@ -66,7 +69,7 @@
   .cover{justify-content:center}
   .cover-row{display:flex;align-items:center;gap:40px;width:100%}
   .cover-left{flex:0 1 auto;min-width:0;max-width:62%}
-  .cover-logo{height:clamp(140px,26vh,360px);width:auto;flex:0 0 auto;align-self:center;margin:0 auto}
+  img.cover-logo{height:clamp(80px,18vw,300px);width:auto;flex:0 0 auto;align-self:center;margin:0 auto}
   .logo-img{display:block;height:auto;width:auto}
   .cover h1{max-width:20ch}
   .cover .sub{font-size:clamp(1rem,1.6vw,22px);color:#9fb2c2;margin-top:18px;max-width:46ch;line-height:1.5}
@@ -125,7 +128,7 @@
   /* cta / qa */
   .center{align-items:center;justify-content:center;text-align:center}
   .btn{display:inline-block;margin-top:26px;background:var(--green);color:#fff;font-weight:800;font-size:18px;padding:15px 32px;border-radius:13px}
-  .logo-foot{height:clamp(48px,9vh,74px);margin:0 auto 22px;display:block}
+  img.logo-foot{height:clamp(40px,12vw,74px);margin:0 auto 22px;display:block}
 
   /* HUD */
   .progress{position:fixed;top:0;left:0;height:4px;background:var(--green);z-index:40;transition:width .4s}
@@ -332,7 +335,7 @@
 
 </div>
 
-<div class="hint" id="hint">← → para navegar · N = notas del presentador</div>
+<div class="hint" id="hint" style="transition: opacity 0.6s; opacity: 0;">← → para navegar · N = notas del presentador</div>
 <div class="hud">
   <div class="dots" id="dots"></div>
   <div class="nav"><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Siguiente">›</button></div>
